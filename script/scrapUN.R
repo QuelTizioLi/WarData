@@ -1,8 +1,19 @@
 library(rtweet)
 library(stringr)
+library(here)
+
+# Create a token containing the Twitter keys
+token <- create_token(
+  app = "CarloTwitter",
+  consumer_key = Sys.getenv("TWITTER_CONSUMER_API_KEY"),
+  consumer_secret = Sys.getenv("TWITTER_CONSUMER_API_SECRET"),
+  access_token = Sys.getenv("TWITTER_ACCESS_TOKEN"),
+  access_secret = Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+)
 
 data <- search_tweets("from:UNHumanRightsUA",
-                      include_rts = FALSE)
+                      include_rts = FALSE,
+                      token = token)
 
 n <- nrow(data) #numero tweet da processare
 
@@ -23,14 +34,15 @@ for (i in 1:n) {
 
 res$Data <- as.character(as.Date(res$Data))
 
-if (file.exists("output.csv")) {
-  hist_res <- read.csv("output.csv")
+
+if (file.exists(here("data", "outputUN.csv"))) {
+  hist_res <- read.csv(here("data", "outputUN.csv"))
   res <- unique(rbind(res, hist_res))
 }
 
 write.csv(
   res,
-  file = "output.csv",
+  file = here("data", "outputUN.csv"),
   row.names = F,
   fileEncoding = "UTF-8"
 )
