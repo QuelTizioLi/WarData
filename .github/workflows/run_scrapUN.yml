@@ -1,4 +1,4 @@
-name: update UN
+name: update
 
 # Controls when the action will run.
 on:
@@ -25,10 +25,13 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
-        R -e 'install.packages(c("rtweet", "stringr", "here"))'
+        R -e 'install.packages(c("rtweet", "stringr", "here", "tesseract"))'
     # Run R script
     - name: scrapUN
       run: Rscript script/scrapUN.R
+      # Run R script
+    - name: scrapRussianLosses
+      run: Rscript script/scrapRussianLosses.R
      
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
