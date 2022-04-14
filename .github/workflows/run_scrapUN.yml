@@ -25,13 +25,16 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
-        R -e 'install.packages(c("rtweet", "stringr", "here", "tesseract"))'
+        R -e 'install.packages(c("rtweet", "stringr", "here", "tesseract", "magick"))'
     # Run R script
     - name: scrapUN
       run: Rscript script/scrapUN.R
       # Run R script
     - name: scrapRussianLosses
       run: Rscript script/scrapRussianLosses.R
+      # Run R script
+    - name: scrapProsecutorGeneral
+      run: Rscript script/scrapProsecutorGeneral.R
      
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
