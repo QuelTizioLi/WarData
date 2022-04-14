@@ -1,6 +1,7 @@
 library(rtweet)
 library(tesseract)
 library(stringr)
+library(here)
 
 eng <- tesseract("eng")
 
