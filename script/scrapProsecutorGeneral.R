@@ -22,7 +22,7 @@ data <- data[startsWith(data$text, "#"),]
 n <- nrow(data) #numero tweet da processare
 
 res <- data.frame(matrix(NA, nrow = n, ncol = 4))
-colnames(res) <- c("Data", "KilledChildren", "InjuredChildren",  "Link")
+colnames(res) <- c("Date", "KilledChildren", "InjuredChildren",  "Link")
 
 for (i in 1:n) {
   
@@ -36,7 +36,7 @@ for (i in 1:n) {
   text <- tesseract::ocr(img, engine = eng)
   text <- gsub("\\,", "", text) #rimuove le virgole
   
-  res$Data[i]   <- substr(as.character(data$created_at[i]), 1, 10)
+  res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
   
   res$KilledChildren[i] <- as.numeric(str_extract(text, "(?i)(?<=KILLED: )\\d+"))
   res$InjuredChildren[i] <- as.numeric(str_extract(text, "(?i)(?<=INJURED: )\\d+"))
