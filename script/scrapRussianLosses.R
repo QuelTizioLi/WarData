@@ -22,7 +22,7 @@ n <- nrow(data) #numero tweet da processare
 
 
 res <- data.frame(matrix(NA, nrow = n, ncol = 16))
-colnames(res) <- c("Data", "Troops", "MLRS", "Planes", "Boats", "Helicopters", "Vehicles", "Tanks",
+colnames(res) <- c("Date", "Troops", "MLRS", "Planes", "Boats", "Helicopters", "Vehicles", "Tanks",
                    "FuelTanks", "ArtilleryPieces", "UAV", "ArmoredPersonnelCarriers",
                    "AntiAircraftWarfare", "MobileSRBMSystems", "SpecialEquipment",  "Link")
 
@@ -32,7 +32,7 @@ for (i in 1:n) {
   text <- tesseract::ocr(media, engine = eng)
   text <- gsub("\\,", "", text) #rimuove le virgole
   
-  res$Data[i]   <- substr(as.character(data$created_at[i]), 1, 10)
+  res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
   
   res$Troops[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*troops)"))
   res$MLRS[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*MLRS)"))
