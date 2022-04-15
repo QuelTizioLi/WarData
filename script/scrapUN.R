@@ -32,7 +32,7 @@ for (i in 1:n) {
   res$Link[i] <- unlist(data$urls_expanded_url[i])
 }
 
-res$Data <- as.character(as.Date(res$Data))
+res$Date <- as.character(as.Date(res$Data))
 
 
 if (file.exists(here("data", "outputUN.csv"))) {
