@@ -44,8 +44,7 @@ for (i in 1:n) {
   res$Link[i] <- media
 }
 
-res$Data <- as.character(as.Date(res$Data))
-
+res$Date <- as.character(as.Date(res$Date))
 
 if (file.exists(here("data", "crimeChildren.csv"))) {
   hist_res <- read.csv(here("data", "crimeChildren.csv"))
