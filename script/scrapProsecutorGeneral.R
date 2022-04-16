@@ -30,7 +30,7 @@ for (i in 1:n) {
   
   img <- image_read(media) %>% 
     image_convert(type = 'Grayscale') %>% 
-    image_crop("450x300+600+480") %>% 
+    # image_crop("450x300+600+480") %>% 
     image_negate()
   
   text <- tesseract::ocr(img, engine = eng)
