@@ -52,6 +52,7 @@ if (file.exists(here("data", "crimeChildren.csv"))) {
 }
 
 res <- na.omit(res)
+res <- res[order(res$Date, decreasing = T),]
 
 write.csv(
   res,
