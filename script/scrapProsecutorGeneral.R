@@ -51,6 +51,8 @@ if (file.exists(here("data", "crimeChildren.csv"))) {
   res <- unique(rbind(res, hist_res))
 }
 
+res <- na.omit(res)
+
 write.csv(
   res,
   file = here("data", "crimeChildren.csv"),
