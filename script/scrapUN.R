@@ -34,11 +34,14 @@ for (i in 1:n) {
 
 res$Date <- as.character(as.Date(res$Date))
 
-
 if (file.exists(here("data", "outputUN.csv"))) {
   hist_res <- read.csv(here("data", "outputUN.csv"))
   res <- unique(rbind(res, hist_res))
 }
+
+res <- na.omit(res)
+res <- res[order(res$Date, decreasing = T),]
+
 
 write.csv(
   res,
