@@ -31,7 +31,7 @@ for (i in 1:n) {
   
   tempDate <- unlist(str_split(res$Link[i], '-'))
   tempDate <- paste(tail(tempDate, 3), collapse = ' ')
-  res$Date[i] <- as.character(as.Date(tempDate, format = '%d %b %y'))
+  res$Date[i] <- as.character(as.Date(tempDate, format = '%d %b %Y'))
   
   # res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
   
