@@ -15,8 +15,7 @@ token <- create_token(
 )
 
 data <- search_tweets("from:KyivIndependent indicative estimates of Russia's combat losses",
-                      include_rts = FALSE,
-                      token = token)
+                      include_rts = FALSE)
 
 n <- nrow(data) #numero tweet da processare
 
@@ -32,7 +31,7 @@ for (i in 1:n) {
   text <- tesseract::ocr(media, engine = eng)
   text <- gsub("\\,", "", text) #rimuove le virgole
   
-  res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
+  res$Date[i]   <- substr(as.character(data$created_at[i] - 24*60*60), 1, 10)
   
   res$Troops[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*troops)"))
   res$MLRS[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*MLRS)"))
