@@ -22,13 +22,18 @@ res <- data.frame(matrix(NA, nrow = n, ncol = 7))
 colnames(res) <- c("Date", "Civilian", "KilledTotal", "KilledChildren", "InjuredTotal", "InjuredChildren", "Link")
 
 for (i in 1:n) {
-  res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
   res$Civilian[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*civilian)"))
   res$KilledTotal[i]  <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*killed)"))
   res$KilledChildren[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*children;)"))
   res$InjuredTotal[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*injured)"))
   res$InjuredChildren[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*children )"))
   res$Link[i] <- unlist(data$urls_expanded_url[i])
+  
+  tempDate <- unlist(str_split(res$Link[i], '-'))
+  tempDate <- paste(tail(tempDate, 3), collapse = ' ')
+  res$Date[i] <- as.character(as.Date(tempDate, format = '%d %b %y'))
+  
+  # res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
   
   if(is.na(res$Civilian[i])){
     res$Civilian[i] <- res$KilledTotal[i] + res$InjuredTotal[i] 
