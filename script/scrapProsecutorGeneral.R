@@ -36,7 +36,7 @@ for (i in 1:n) {
   text <- tesseract::ocr(img, engine = eng)
   text <- gsub("\\,", "", text) #rimuove le virgole
   
-  res$Date[i]   <- substr(as.character(data$created_at[i]), 1, 10)
+  res$Date[i]   <- substr(as.character(data$created_at[i] - 24*60*60), 1, 10)
   
   res$KilledChildren[i] <- as.numeric(str_extract(text, "(?i)(?<=KILLED:)\\d+"))
   if(is.na(res$KilledChildren[i])){
