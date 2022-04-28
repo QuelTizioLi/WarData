@@ -12,8 +12,7 @@ token <- create_token(
 )
 
 data <- search_tweets("from:UNHumanRightsUA",
-                      include_rts = FALSE,
-                      token = token)
+                      include_rts = FALSE)
 
 n <- nrow(data) #numero tweet da processare
 
@@ -30,6 +29,10 @@ for (i in 1:n) {
   res$InjuredTotal[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*injured)"))
   res$InjuredChildren[i] <- as.numeric(str_extract(data$text[i], "[0-9]+(?=\\s*children )"))
   res$Link[i] <- unlist(data$urls_expanded_url[i])
+  
+  if(is.na(res$Civilian[i])){
+    res$Civilian[i] <- res$KilledTotal[i] + res$InjuredTotal[i] 
+  }
 }
 
 res$Date <- as.character(as.Date(res$Date))
