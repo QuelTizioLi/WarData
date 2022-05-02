@@ -20,16 +20,17 @@ data <- search_tweets("from:KyivIndependent indicative estimates of Russia's com
 n <- nrow(data) #numero tweet da processare
 
 
-res <- data.frame(matrix(NA, nrow = n, ncol = 16))
+res <- data.frame(matrix(NA, nrow = n, ncol = 17))
 colnames(res) <- c("Date", "Troops", "MLRS", "Planes", "Boats", "Helicopters", "Vehicles", "Tanks",
                    "FuelTanks", "ArtilleryPieces", "UAV", "ArmoredPersonnelCarriers",
-                   "AntiAircraftWarfare", "MobileSRBMSystems", "SpecialEquipment",  "Link")
+                   "AntiAircraftWarfare", "MobileSRBMSystems", "SpecialEquipment", "CruiseMissiles",
+                   "Link")
 
 for (i in 1:n) {
   
   media <- unlist(data$media_url[i])
   text <- tesseract::ocr(media, engine = eng)
-  text <- gsub("\\,", "", text) #rimuove le virgole
+ # text <- gsub("\\,", "", text) #rimuove le virgole
   text <- gsub("[[:punct:]]", "", text)
   text <- gsub('"', "", text)
   
@@ -46,9 +47,13 @@ for (i in 1:n) {
   res$ArtilleryPieces[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*artillery)"))
   res$UAV[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*UAV)"))
   res$ArmoredPersonnelCarriers[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*armored)"))
+  if(is.na(res$ArmoredPersonnelCarriers[i])){
+    res$ArmoredPersonnelCarriers[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*APV)"))
+  }
   res$AntiAircraftWarfare[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*anti)"))
   res$MobileSRBMSystems[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*mobile)"))
   res$SpecialEquipment[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*special)"))
+  res$CruiseMissiles[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*cruise)"))
  
   res$Link[i] <- media
 }
