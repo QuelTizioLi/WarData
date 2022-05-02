@@ -30,6 +30,8 @@ for (i in 1:n) {
   media <- unlist(data$media_url[i])
   text <- tesseract::ocr(media, engine = eng)
   text <- gsub("\\,", "", text) #rimuove le virgole
+  text <- gsub("[[:punct:]]", "", text)
+  text <- gsub(""", "", text)
   
   res$Date[i]   <- substr(as.character(data$created_at[i] - 24*60*60), 1, 10)
   
