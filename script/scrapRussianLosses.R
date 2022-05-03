@@ -46,6 +46,9 @@ for (i in 1:n) {
   res$FuelTanks[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*fuel)"))
   res$ArtilleryPieces[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*artillery)"))
   res$UAV[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*UAV)"))
+  if(res$UAV[i] > 1000){
+    res$UAV[i] <-  floor(res$UAV[i]/10)
+  }
   res$ArmoredPersonnelCarriers[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*armored)"))
   if(is.na(res$ArmoredPersonnelCarriers[i])){
     res$ArmoredPersonnelCarriers[i] <- as.numeric(str_extract(text, "[0-9]+(?=\\s*APV)"))
