@@ -38,6 +38,12 @@ for (i in 1:n) {
   if(is.na(res$Civilian[i])){
     res$Civilian[i] <- res$KilledTotal[i] + res$InjuredTotal[i] 
   }
+  
+  if(is.na(res$Date[i])){
+    tempDate <- substr(as.character(data$created_at[i]), 1, 10)
+    tempDate <- as.Date(tempDate, format = '%Y-%m-%d') - 1
+    res$Date[i] <- as.character(tempDate)
+  }
 }
 
 res$Date <- as.character(as.Date(res$Date))
