@@ -55,7 +55,7 @@ if (file.exists(here("data", "outputUN.csv"))) {
 
 res <- na.omit(res)
 res <- res[order(res$Date, decreasing = T),]
-
+res <- unique(res)
 
 write.csv(
   res,
