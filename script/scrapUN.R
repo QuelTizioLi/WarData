@@ -11,10 +11,11 @@ token <- create_token(
   access_secret = Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 )
 
-data <- search_tweets("from:UNHumanRightsUA",
+data <- search_tweets("from:UNHumanRightsUA Latest update on civilian casualties",
                       include_rts = FALSE)
 
-n <- nrow(data) #numero tweet da processare
+# n <- nrow(data) #numero tweet da processare
+n <- 1 #numero tweet da processare
 
 data$text <- gsub("\\,", "", data$text) #rimuove le virgole
 
