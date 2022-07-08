@@ -46,7 +46,10 @@ for (i in 1:n) {
   if(is.na(res$InjuredChildren[i])){
     res$InjuredChildren[i] <- as.numeric(str_extract(text, "(?i)(?<=INJURED:)\\d+"))
   }
- 
+  if(is.na(res$InjuredChildren[i])){
+    res$InjuredChildren[i] <- as.numeric(str_extract(text, "(?i)(?<=INJU RED: )\\d+"))
+  }
+    
   res$Link[i] <- media
 }
 
