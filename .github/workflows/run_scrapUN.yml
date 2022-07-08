@@ -27,8 +27,8 @@ jobs:
       run: |
         R -e 'install.packages(c("rtweet", "stringr", "here", "tesseract", "magick"))'
     # Run R script
-    - name: scrapUN
-      run: Rscript script/scrapUN.R
+       #  - name: scrapUN
+       #  run: Rscript script/scrapUN.R
       # Run R script
     - name: scrapRussianLosses
       run: Rscript script/scrapRussianLosses.R
