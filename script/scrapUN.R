@@ -15,7 +15,7 @@ data <-
   search_tweets("from:UNHumanRightsUA Latest update on civilian casualties",
                 include_rts = FALSE)
 
-if (!nrow(data)) {
+if (nrow(data) > 0) {
   # n <- nrow(data) #numero tweet da processare
   n <- 1 #numero tweet da processare
   
@@ -72,7 +72,7 @@ if (!nrow(data)) {
   }
   
   res <- na.omit(res)
-  res <- res[order(res$Date, decreasing = T), ]
+  res <- res[order(res$Date, decreasing = T),]
   res <- unique(res)
   
   write.csv(
